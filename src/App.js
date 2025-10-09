@@ -14,16 +14,22 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { useDispatch, useSelector } from 'react-redux';
+import { increment } from './store/customSlice.js';
 ChartJS.register(LineElement, PointElement, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 
 function App() {
   const [count, setCount] = useState(0);
   const [ageDate, setAgeData] = useState('');
+  const count1 = useSelector((state)=>state.custom);
+  const dispatch = useDispatch();
+  console.log(count1, "bejjam")
   const handleInputData = (e) => {
     setAgeData(e.target.value)
   }
   const handleCalculateAge = (e) => {
+    dispatch(increment())
     let currentDate = new Date();
     let dob = new Date(ageDate);
     if (currentDate - dob < 0 || !ageDate) {
